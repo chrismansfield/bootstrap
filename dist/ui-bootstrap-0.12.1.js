@@ -103,7 +103,9 @@ angular.module('ui.bootstrap.collapse', ['ui.bootstrap.transition'])
                       initialAnimSkip = false;
                       expandDone();
                   } else {
-                      element.slideDown(function () {
+                      var deferred = $q.defer();
+                      element.slideDown({ done: deferred.resolve });
+                      deferred.promise.then(function () {
                           expandDone();
                       });
                   }
